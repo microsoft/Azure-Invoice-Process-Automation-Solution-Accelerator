@@ -1,0 +1,258 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    
+    "parameters": {
+        "suffixName": {
+            "type": "string",
+            "defaultValue": "z12",
+            "minLength": 3,
+            "maxLength": 10,
+            "metadata": {
+                "description": "Name the suffix between 3-10 characters with only characters and numbers"
+            }
+        }
+    },
+
+    "variables": {
+      "location": "[resourceGroup().location]",
+      "rgId": "[resourceGroup().id]",
+
+      "tenantId": "[subscription().tenantId]",
+      "paramName": "[parameters('suffixName')]",
+      "storageContainer": "invoiceadlsfs",
+
+      "uniqueName": "[substring(uniqueString(variables('rgId')),0,4)]",
+      "storageName": "[replace(replace(toLower(concat( variables('paramName'), variables('uniqueName') )),'-',''),'_','')]",
+
+      "formrecognizername": "[concat(variables('paramName'),variables('uniqueName'), 'fr')]",
+      
+      "cosmosdbaccountname": "[replace(replace(toLower(concat(concat('cosmosdb',variables('paramName')),variables('uniqueName'))),'-',''),'_','')]",
+      "cosmosdbname": "Invoices", 
+      "cosmosdbcontainer": "fieldlistcustom",
+      "userAssignedIdentities":"[concat(variables('paramName'),variables('uniqueName'), '-UAId')]",
+      "StorageBlobDataContributor": "ba92f5b4-2d11-453d-a403-e96b0029c9fe"
+    },
+
+    "resources": [
+        {
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2019-06-01",
+            "name": "[variables('storageName')]",
+            "location": "[variables('location')]",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "StorageV2",
+            "properties": {
+                "isHnsEnabled": true,
+                "networkAcls": {
+                    "bypass": "AzureServices",
+                    "virtualNetworkRules": [],
+                    "ipRules": [],
+                    "defaultAction": "Allow"
+                },
+                "supportsHttpsTrafficOnly": true,
+                "encryption": {
+                    "services": {
+                        "file": {
+                            "enabled": true
+                        },
+                        "blob": {
+                            "enabled": true
+                        }
+                    },
+                    "keySource": "Microsoft.Storage"
+                },
+                "accessTier": "Hot"
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/blobServices",
+            "apiVersion": "2019-06-01",
+            "name": "[concat(variables('storageName'), '/default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageName'))]"
+            ],
+            "properties": {
+                "cors": {
+                    "corsRules": [
+                      {
+                        "allowedOrigins": [
+                            "https://formrecognizer.appliedai.azure.com"
+                        ],
+                        "allowedMethods": [
+                          "GET",
+                          "POST",
+                          "DELETE",
+                          "HEAD",
+                          "MERGE",
+                          "OPTIONS",
+                          "PUT",
+                          "PATCH"
+                        ],
+                        "maxAgeInSeconds": 120,
+                        "exposedHeaders": [
+                            "*"
+                        ],
+                        "allowedHeaders": [
+                            "*"
+                        ]
+                      }
+                    ]
+                },
+                "deleteRetentionPolicy": {
+                    "enabled": false
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+            "apiVersion": "2019-06-01",
+            "name": "[concat(variables('storageName'), '/default/', variables('storageContainer'))]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', variables('storageName'), 'default')]",
+                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageName'))]"
+            ],
+            "properties": {
+                "publicAccess": "None"
+            }
+        },
+       
+        
+        {
+            "type": "Microsoft.CognitiveServices/accounts",
+            "apiVersion": "2021-04-30",
+            "name": "[variables('formrecognizername')]",
+            "location": "[variables('location')]",
+            "sku": {
+                "name": "F0"
+            },
+            "kind": "FormRecognizer",
+            "identity": {
+                "type": "None",
+                "userAssignedIdentities": {}
+            },
+            "properties": {
+                "customSubDomainName": "[variables('formrecognizername')]",
+                "networkAcls": {
+                    "defaultAction": "Allow",
+                    "virtualNetworkRules": [],
+                    "ipRules": []
+                },
+                "publicNetworkAccess": "Enabled"
+            }
+        },
+        {
+            "name": "[variables('cosmosdbaccountname')]",
+            "type": "Microsoft.DocumentDB/databaseAccounts",
+            "apiVersion": "2019-12-12",
+            "location": "[variables('location')]",
+            "tags": {},
+            "kind": "GlobalDocumentDB",
+            "properties": {
+              "consistencyPolicy": {
+                "defaultConsistencyLevel": "Session",
+                "maxStalenessPrefix": 1,
+                "maxIntervalInSeconds": 5
+              },
+              "locations": [
+                {
+                  "locationName": "[variables('location')]",
+                  "failoverPriority": 0
+                }
+              ],
+              "databaseAccountOfferType": "Standard",
+              "enableAutomaticFailover": false
+            }
+        },
+        {
+          "type": "Microsoft.DocumentDB/databaseAccounts/sqlDatabases",
+          "apiVersion": "2021-10-15",
+          "name": "[concat(variables('cosmosdbaccountname'), '/', variables('cosmosdbname'))]",
+          "dependsOn": [
+              "[resourceId('Microsoft.DocumentDB/databaseAccounts', variables('cosmosdbaccountname'))]"
+          ],
+          "properties": {
+              "resource": {
+                  "id": "[variables('cosmosdbname')]"
+              }
+          }
+        },
+        {
+            "type": "Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers",
+            "name": "[concat(variables('cosmosdbaccountname'), '/', variables('cosmosdbname'), '/', variables('cosmosdbcontainer'))]",
+            "apiVersion": "2021-04-15",
+            "dependsOn": [
+              "[resourceId('Microsoft.DocumentDB/databaseAccounts/sqlDatabases', variables('cosmosdbaccountname'), variables('cosmosdbname'))]"
+            ],
+            "properties": {
+              "resource": {
+                "id": "[variables('cosmosdbcontainer')]",
+                "partitionKey": {
+                  "paths": [
+                    "/id"
+                  ],
+                  "kind": "hash"
+                },
+                "indexingPolicy": {
+                  "indexingMode": "consistent",
+                  "includedPaths": [
+                    {
+                      "path": "/*",
+                      "indexes": [
+                        {
+                          "kind": "Hash",
+                          "dataType": "String",
+                          "precision": -1
+                        }
+                      ]
+                    }
+                  ],
+                  "excludedPaths": [
+                    {
+                      "path": "/\"_etag\"/?"
+                    }
+                  ]
+                }
+              },
+              "options": {}
+            }
+        },
+        {
+          "type": "Microsoft.ManagedIdentity/userAssignedIdentities",
+          "apiVersion": "2018-11-30",
+          "name": "[variables('userAssignedIdentities')]",
+          "location": "[variables('location')]"
+        },
+        {
+          "scope": "[concat('Microsoft.Storage/storageAccounts/', variables('storageName'))]",
+          "type": "Microsoft.Authorization/roleAssignments",
+          "apiVersion": "2020-04-01-preview",
+          "name": "[guid(uniqueString(variables('storageName')))]",
+          "location": "[variables('location')]",
+          "properties": {
+            "roleDefinitionId": "[resourceId('Microsoft.Authorization/roleDefinitions', variables('StorageBlobDataContributor'))]",
+            "principalId": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', variables('userAssignedIdentities'))).principalId]",
+            "principalType": "ServicePrincipal"
+          },
+          "dependsOn": [
+            "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', variables('userAssignedIdentities'))]"
+          ]
+        },
+        { 
+            "apiVersion": "2020-10-01",
+            "name": "pid-cecbb919-a93d-5409-91f6-0ce2403a32fd",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "template": {
+                    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+                    "contentVersion": "1.0.0.0",
+                    "resources": []
+                }
+            }
+        }
+    ]
+}

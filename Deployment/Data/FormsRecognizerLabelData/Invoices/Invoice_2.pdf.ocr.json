@@ -1,0 +1,1318 @@
+{
+	"status": "succeeded",
+	"createdDateTime": "2022-02-25T15:53:31Z",
+	"lastUpdatedDateTime": "2022-02-25T15:53:33Z",
+	"analyzeResult": {
+		"apiVersion": "2022-01-30-preview",
+		"modelId": "prebuilt-layout",
+		"stringIndexType": "textElements",
+		"content": "AdventureWorks\nAddress:\n22 1st way Suite\n4000 Redmond, WA\n99243\nInvoice For: Contoso\n456 49th st\nNew York, NY 87643\nInvoice Number\nInvoice Date\nInvoice Due Date\nCharges\nVAT ID\n3427435437\n5/2/2017\n6/1/2017\n$1002.00\nRT",
+		"pages": [
+			{
+				"pageNumber": 1,
+				"angle": 0,
+				"width": 8.5,
+				"height": 11,
+				"unit": "inch",
+				"words": [
+					{
+						"content": "AdventureWorks",
+						"boundingBox": [
+							0.5306,
+							1.1536,
+							2.4355,
+							1.1536,
+							2.4355,
+							1.3534,
+							0.5306,
+							1.3534
+						],
+						"confidence": 1,
+						"span": {
+							"offset": 0,
+							"length": 14
+						}
+					},
+					{
+						"content": "Address:",
+						"boundingBox": [
+							0.7994,
+							1.5143,
+							1.3836,
+							1.5143,
+							1.3836,
+							1.6154,
+							0.7994,
+							1.6154
+						],
+						"confidence": 1,
+						"span": {
+							"offset": 15,
+							"length": 8
+						}
+					},
+					{
+						"content": "22",
+						"boundingBox": [
+							0.8007,
+							1.7043,
+							0.9432,
+							1.7043,
+							0.9432,
+							1.8053,
+							0.8007,
+							1.8053
+						],
+						"confidence": 1,
+						"span": {
+							"offset": 24,
+							"length": 2
+						}
+					},
+					{
+						"content": "1st",
+						"boundingBox": [
+							1.004,
+							1.7043,
+							1.1725,
+							1.7043,
+							1.1725,
+							1.8068,
+							1.004,
+							1.8068
+						],
+						"confidence": 1,
+						"span": {
+							"offset": 27,
+							"length": 3
+						}
+					},
+					{
+						"content": "way",
+						"boundingBox": [
+							1.2124,
+							1.7309,
+							1.4567,
+							1.7309,
+							1.4567,
+							1.8342,
+							1.2124,
+							1.8342
+						],
+						"confidence": 1,
+						"span": {
+							"offset": 31,
+							"length": 3
+						}
+					},
+					{
+						"content": "Suite",
+						"boundingBox": [
+							1.5031,
+							1.7033,
+							1.8061,
+							1.7033,
+							1.8061,
+							1.8078,
+							1.5031,
+							1.8078
+						],
+						"confidence": 1,
+						"span": {
+							"offset": 35,
+							"length": 5
+						}
+					},
+					{
+						"content": "4000",
+						"boundingBox": [
+							0.7985,
+							1.896,
+							1.0977,
+							1.896,
+							1.0977,
+							1.9985,
+							0.7985,
+							1.9985
+						],
+						"confidence": 1,
+						"span": {
+							"offset": 41,
+							"length": 4
+						}
+					},
+					{
+						"content": "Redmond,",
+						"boundingBox": [
+							1.1537,
+							1.8964,
+							1.7689,
+							1.8964,
+							1.7689,
+							2.0171,
+							1.1537,
+							2.0171
+						],
+						"confidence": 1,
+						"span": {
+							"offset": 46,
+							"length": 8
+						}
+					},
+					{
+						"content": "WA",
+						"boundingBox": [
+							1.8196,
+							1.8976,
+							2.0384,
+							1.8976,
+							2.0384,
+							1.9969,
+							1.8196,
+							1.9969
+						],
+						"confidence": 1,
+						"span": {
+							"offset": 55,
+							"length": 2
+						}
+					},
+					{
+						"content": "99243",
+						"boundingBox": [
+							0.8025,
+							2.0876,
+							1.175,
+							2.0876,
+							1.175,
+							2.1911,
+							0.8025,
+							2.1911
+						],
+						"confidence": 1,
+						"span": {
+							"offset": 58,
+							"length": 5
+						}
+					},
+					{
+						"content": "Invoice",
+						"boundingBox": [
+							4.4033,
+							1.5143,
+							4.8234,
+							1.5143,
+							4.8234,
+							1.6155,
+							4.4033,
+							1.6155
+						],
+						"confidence": 1,
+						"span": {
+							"offset": 64,
+							"length": 7
+						}
+					},
+					{
+						"content": "For:",
+						"boundingBox": [
+							4.8793,
+							1.5143,
+							5.1013,
+							1.5143,
+							5.1013,
+							1.6154,
+							4.8793,
+							1.6154
+						],
+						"confidence": 1,
+						"span": {
+							"offset": 72,
+							"length": 4
+						}
+					},
+					{
+						"content": "Contoso",
+						"boundingBox": [
+							5.2012,
+							1.5114,
+							5.7506,
+							1.5114,
+							5.7506,
+							1.6151,
+							5.2012,
+							1.6151
+						],
+						"confidence": 1,
+						"span": {
+							"offset": 77,
+							"length": 7
+						}
+					},
+					{
+						"content": "456",
+						"boundingBox": [
+							5.201,
+							1.716,
+							5.4242,
+							1.716,
+							5.4242,
+							1.8185,
+							5.201,
+							1.8185
+						],
+						"confidence": 1,
+						"span": {
+							"offset": 85,
+							"length": 3
+						}
+					},
+					{
+						"content": "49th",
+						"boundingBox": [
+							5.4702,
+							1.716,
+							5.7426,
+							1.716,
+							5.7426,
+							1.8186,
+							5.4702,
+							1.8186
+						],
+						"confidence": 1,
+						"span": {
+							"offset": 89,
+							"length": 4
+						}
+					},
+					{
+						"content": "st",
+						"boundingBox": [
+							5.7936,
+							1.7185,
+							5.9117,
+							1.7185,
+							5.9117,
+							1.8185,
+							5.7936,
+							1.8185
+						],
+						"confidence": 1,
+						"span": {
+							"offset": 94,
+							"length": 2
+						}
+					},
+					{
+						"content": "New",
+						"boundingBox": [
+							5.2069,
+							1.9064,
+							5.481,
+							1.9064,
+							5.481,
+							2.0085,
+							5.2069,
+							2.0085
+						],
+						"confidence": 1,
+						"span": {
+							"offset": 97,
+							"length": 3
+						}
+					},
+					{
+						"content": "York,",
+						"boundingBox": [
+							5.5196,
+							1.9064,
+							5.8567,
+							1.9064,
+							5.8567,
+							2.03,
+							5.5196,
+							2.03
+						],
+						"confidence": 1,
+						"span": {
+							"offset": 101,
+							"length": 5
+						}
+					},
+					{
+						"content": "NY",
+						"boundingBox": [
+							5.9137,
+							1.9064,
+							6.0957,
+							1.9064,
+							6.0957,
+							2.0069,
+							5.9137,
+							2.0069
+						],
+						"confidence": 1,
+						"span": {
+							"offset": 107,
+							"length": 2
+						}
+					},
+					{
+						"content": "87643",
+						"boundingBox": [
+							6.1397,
+							1.906,
+							6.5126,
+							1.906,
+							6.5126,
+							2.0086,
+							6.1397,
+							2.0086
+						],
+						"confidence": 1,
+						"span": {
+							"offset": 110,
+							"length": 5
+						}
+					},
+					{
+						"content": "Invoice",
+						"boundingBox": [
+							0.5439,
+							2.8733,
+							1.0098,
+							2.8733,
+							1.0098,
+							2.9754,
+							0.5439,
+							2.9754
+						],
+						"confidence": 1,
+						"span": {
+							"offset": 116,
+							"length": 7
+						}
+					},
+					{
+						"content": "Number",
+						"boundingBox": [
+							1.0611,
+							2.8743,
+							1.5729,
+							2.8743,
+							1.5729,
+							2.9754,
+							1.0611,
+							2.9754
+						],
+						"confidence": 1,
+						"span": {
+							"offset": 124,
+							"length": 6
+						}
+					},
+					{
+						"content": "Invoice",
+						"boundingBox": [
+							1.9491,
+							2.8733,
+							2.415,
+							2.8733,
+							2.415,
+							2.9754,
+							1.9491,
+							2.9754
+						],
+						"confidence": 1,
+						"span": {
+							"offset": 131,
+							"length": 7
+						}
+					},
+					{
+						"content": "Date",
+						"boundingBox": [
+							2.4673,
+							2.8743,
+							2.7527,
+							2.8743,
+							2.7527,
+							2.9754,
+							2.4673,
+							2.9754
+						],
+						"confidence": 1,
+						"span": {
+							"offset": 139,
+							"length": 4
+						}
+					},
+					{
+						"content": "Invoice",
+						"boundingBox": [
+							3.3495,
+							2.8733,
+							3.8155,
+							2.8733,
+							3.8155,
+							2.9754,
+							3.3495,
+							2.9754
+						],
+						"confidence": 1,
+						"span": {
+							"offset": 144,
+							"length": 7
+						}
+					},
+					{
+						"content": "Due",
+						"boundingBox": [
+							3.8677,
+							2.8743,
+							4.1149,
+							2.8743,
+							4.1149,
+							2.9754,
+							3.8677,
+							2.9754
+						],
+						"confidence": 1,
+						"span": {
+							"offset": 152,
+							"length": 3
+						}
+					},
+					{
+						"content": "Date",
+						"boundingBox": [
+							4.1678,
+							2.8743,
+							4.4547,
+							2.8743,
+							4.4547,
+							2.9754,
+							4.1678,
+							2.9754
+						],
+						"confidence": 1,
+						"span": {
+							"offset": 156,
+							"length": 4
+						}
+					},
+					{
+						"content": "Charges",
+						"boundingBox": [
+							4.7468,
+							2.8717,
+							5.289,
+							2.8717,
+							5.289,
+							3.0035,
+							4.7468,
+							3.0035
+						],
+						"confidence": 1,
+						"span": {
+							"offset": 161,
+							"length": 7
+						}
+					},
+					{
+						"content": "VAT",
+						"boundingBox": [
+							6.141,
+							2.873,
+							6.4147,
+							2.873,
+							6.4147,
+							2.9736,
+							6.141,
+							2.9736
+						],
+						"confidence": 1,
+						"span": {
+							"offset": 169,
+							"length": 3
+						}
+					},
+					{
+						"content": "ID",
+						"boundingBox": [
+							6.4655,
+							2.873,
+							6.5875,
+							2.873,
+							6.5875,
+							2.9736,
+							6.4655,
+							2.9736
+						],
+						"confidence": 1,
+						"span": {
+							"offset": 173,
+							"length": 2
+						}
+					},
+					{
+						"content": "3427435437",
+						"boundingBox": [
+							0.5397,
+							3.411,
+							1.2998,
+							3.411,
+							1.2998,
+							3.5144,
+							0.5397,
+							3.5144
+						],
+						"confidence": 1,
+						"span": {
+							"offset": 176,
+							"length": 10
+						}
+					},
+					{
+						"content": "5/2/2017",
+						"boundingBox": [
+							1.9461,
+							3.41,
+							2.4741,
+							3.41,
+							2.4741,
+							3.5144,
+							1.9461,
+							3.5144
+						],
+						"confidence": 1,
+						"span": {
+							"offset": 187,
+							"length": 8
+						}
+					},
+					{
+						"content": "6/1/2017",
+						"boundingBox": [
+							3.346,
+							3.4097,
+							3.8745,
+							3.4097,
+							3.8745,
+							3.5144,
+							3.346,
+							3.5144
+						],
+						"confidence": 1,
+						"span": {
+							"offset": 196,
+							"length": 8
+						}
+					},
+					{
+						"content": "$1002.00",
+						"boundingBox": [
+							5.4666,
+							3.4114,
+							6.0324,
+							3.4114,
+							6.0324,
+							3.5343,
+							5.4666,
+							3.5343
+						],
+						"confidence": 1,
+						"span": {
+							"offset": 205,
+							"length": 8
+						}
+					},
+					{
+						"content": "RT",
+						"boundingBox": [
+							6.2288,
+							3.4114,
+							6.3995,
+							3.4114,
+							6.3995,
+							3.5119,
+							6.2288,
+							3.5119
+						],
+						"confidence": 1,
+						"span": {
+							"offset": 214,
+							"length": 2
+						}
+					}
+				],
+				"selectionMarks": [],
+				"lines": [
+					{
+						"content": "AdventureWorks",
+						"boundingBox": [
+							0.5306,
+							1.1536,
+							2.4355,
+							1.1536,
+							2.4355,
+							1.3534,
+							0.5306,
+							1.3534
+						],
+						"spans": [
+							{
+								"offset": 0,
+								"length": 14
+							}
+						]
+					},
+					{
+						"content": "Address:",
+						"boundingBox": [
+							0.7994,
+							1.5143,
+							1.3836,
+							1.5143,
+							1.3836,
+							1.6154,
+							0.7994,
+							1.6154
+						],
+						"spans": [
+							{
+								"offset": 15,
+								"length": 8
+							}
+						]
+					},
+					{
+						"content": "22 1st way Suite",
+						"boundingBox": [
+							0.8007,
+							1.7033,
+							1.8061,
+							1.7033,
+							1.8061,
+							1.8342,
+							0.8007,
+							1.8342
+						],
+						"spans": [
+							{
+								"offset": 24,
+								"length": 16
+							}
+						]
+					},
+					{
+						"content": "4000 Redmond, WA",
+						"boundingBox": [
+							0.7985,
+							1.896,
+							2.0384,
+							1.896,
+							2.0384,
+							2.0171,
+							0.7985,
+							2.0171
+						],
+						"spans": [
+							{
+								"offset": 41,
+								"length": 16
+							}
+						]
+					},
+					{
+						"content": "99243",
+						"boundingBox": [
+							0.8025,
+							2.0876,
+							1.175,
+							2.0876,
+							1.175,
+							2.1911,
+							0.8025,
+							2.1911
+						],
+						"spans": [
+							{
+								"offset": 58,
+								"length": 5
+							}
+						]
+					},
+					{
+						"content": "Invoice For: Contoso",
+						"boundingBox": [
+							4.4033,
+							1.5114,
+							5.7506,
+							1.5114,
+							5.7506,
+							1.6155,
+							4.4033,
+							1.6155
+						],
+						"spans": [
+							{
+								"offset": 64,
+								"length": 20
+							}
+						]
+					},
+					{
+						"content": "456 49th st",
+						"boundingBox": [
+							5.201,
+							1.716,
+							5.9117,
+							1.716,
+							5.9117,
+							1.8186,
+							5.201,
+							1.8186
+						],
+						"spans": [
+							{
+								"offset": 85,
+								"length": 11
+							}
+						]
+					},
+					{
+						"content": "New York, NY 87643",
+						"boundingBox": [
+							5.2069,
+							1.906,
+							6.5126,
+							1.906,
+							6.5126,
+							2.03,
+							5.2069,
+							2.03
+						],
+						"spans": [
+							{
+								"offset": 97,
+								"length": 18
+							}
+						]
+					},
+					{
+						"content": "Invoice Number",
+						"boundingBox": [
+							0.5439,
+							2.8733,
+							1.5729,
+							2.8733,
+							1.5729,
+							2.9754,
+							0.5439,
+							2.9754
+						],
+						"spans": [
+							{
+								"offset": 116,
+								"length": 14
+							}
+						]
+					},
+					{
+						"content": "Invoice Date",
+						"boundingBox": [
+							1.9491,
+							2.8733,
+							2.7527,
+							2.8733,
+							2.7527,
+							2.9754,
+							1.9491,
+							2.9754
+						],
+						"spans": [
+							{
+								"offset": 131,
+								"length": 12
+							}
+						]
+					},
+					{
+						"content": "Invoice Due Date",
+						"boundingBox": [
+							3.3495,
+							2.8733,
+							4.4547,
+							2.8733,
+							4.4547,
+							2.9754,
+							3.3495,
+							2.9754
+						],
+						"spans": [
+							{
+								"offset": 144,
+								"length": 16
+							}
+						]
+					},
+					{
+						"content": "Charges",
+						"boundingBox": [
+							4.7468,
+							2.8717,
+							5.289,
+							2.8717,
+							5.289,
+							3.0035,
+							4.7468,
+							3.0035
+						],
+						"spans": [
+							{
+								"offset": 161,
+								"length": 7
+							}
+						]
+					},
+					{
+						"content": "VAT ID",
+						"boundingBox": [
+							6.141,
+							2.873,
+							6.5875,
+							2.873,
+							6.5875,
+							2.9736,
+							6.141,
+							2.9736
+						],
+						"spans": [
+							{
+								"offset": 169,
+								"length": 6
+							}
+						]
+					},
+					{
+						"content": "3427435437",
+						"boundingBox": [
+							0.5397,
+							3.411,
+							1.2998,
+							3.411,
+							1.2998,
+							3.5144,
+							0.5397,
+							3.5144
+						],
+						"spans": [
+							{
+								"offset": 176,
+								"length": 10
+							}
+						]
+					},
+					{
+						"content": "5/2/2017",
+						"boundingBox": [
+							1.9461,
+							3.41,
+							2.4741,
+							3.41,
+							2.4741,
+							3.5144,
+							1.9461,
+							3.5144
+						],
+						"spans": [
+							{
+								"offset": 187,
+								"length": 8
+							}
+						]
+					},
+					{
+						"content": "6/1/2017",
+						"boundingBox": [
+							3.346,
+							3.4097,
+							3.8745,
+							3.4097,
+							3.8745,
+							3.5144,
+							3.346,
+							3.5144
+						],
+						"spans": [
+							{
+								"offset": 196,
+								"length": 8
+							}
+						]
+					},
+					{
+						"content": "$1002.00",
+						"boundingBox": [
+							5.4666,
+							3.4114,
+							6.0324,
+							3.4114,
+							6.0324,
+							3.5343,
+							5.4666,
+							3.5343
+						],
+						"spans": [
+							{
+								"offset": 205,
+								"length": 8
+							}
+						]
+					},
+					{
+						"content": "RT",
+						"boundingBox": [
+							6.2288,
+							3.4114,
+							6.3995,
+							3.4114,
+							6.3995,
+							3.5119,
+							6.2288,
+							3.5119
+						],
+						"spans": [
+							{
+								"offset": 214,
+								"length": 2
+							}
+						]
+					}
+				],
+				"spans": [
+					{
+						"offset": 0,
+						"length": 216
+					}
+				]
+			}
+		],
+		"tables": [
+			{
+				"rowCount": 3,
+				"columnCount": 5,
+				"cells": [
+					{
+						"kind": "columnHeader",
+						"rowIndex": 0,
+						"columnIndex": 0,
+						"rowSpan": 1,
+						"columnSpan": 1,
+						"content": "Invoice Number",
+						"boundingRegions": [
+							{
+								"pageNumber": 1,
+								"boundingBox": [
+									0.5136,
+									2.7928,
+									1.8907,
+									2.7928,
+									1.8978,
+									3.3181,
+									0.5064,
+									3.3181
+								]
+							}
+						],
+						"spans": [
+							{
+								"offset": 116,
+								"length": 14
+							}
+						]
+					},
+					{
+						"kind": "columnHeader",
+						"rowIndex": 0,
+						"columnIndex": 1,
+						"rowSpan": 1,
+						"columnSpan": 1,
+						"content": "Invoice Date",
+						"boundingRegions": [
+							{
+								"pageNumber": 1,
+								"boundingBox": [
+									1.8907,
+									2.7928,
+									3.2893,
+									2.7928,
+									3.2964,
+									3.3181,
+									1.8978,
+									3.3181
+								]
+							}
+						],
+						"spans": [
+							{
+								"offset": 131,
+								"length": 12
+							}
+						]
+					},
+					{
+						"kind": "columnHeader",
+						"rowIndex": 0,
+						"columnIndex": 2,
+						"rowSpan": 1,
+						"columnSpan": 1,
+						"content": "Invoice Due Date",
+						"boundingRegions": [
+							{
+								"pageNumber": 1,
+								"boundingBox": [
+									3.2893,
+									2.7928,
+									4.6878,
+									2.7928,
+									4.695,
+									3.3181,
+									3.2964,
+									3.3181
+								]
+							}
+						],
+						"spans": [
+							{
+								"offset": 144,
+								"length": 16
+							}
+						]
+					},
+					{
+						"kind": "columnHeader",
+						"rowIndex": 0,
+						"columnIndex": 3,
+						"rowSpan": 1,
+						"columnSpan": 1,
+						"content": "Charges",
+						"boundingRegions": [
+							{
+								"pageNumber": 1,
+								"boundingBox": [
+									4.6878,
+									2.7928,
+									6.0864,
+									2.7928,
+									6.0936,
+									3.3181,
+									4.695,
+									3.3181
+								]
+							}
+						],
+						"spans": [
+							{
+								"offset": 161,
+								"length": 7
+							}
+						]
+					},
+					{
+						"kind": "columnHeader",
+						"rowIndex": 0,
+						"columnIndex": 4,
+						"rowSpan": 1,
+						"columnSpan": 1,
+						"content": "VAT ID",
+						"boundingRegions": [
+							{
+								"pageNumber": 1,
+								"boundingBox": [
+									6.0864,
+									2.7928,
+									7.485,
+									2.7928,
+									7.485,
+									3.312,
+									6.0936,
+									3.3181
+								]
+							}
+						],
+						"spans": [
+							{
+								"offset": 169,
+								"length": 6
+							}
+						]
+					},
+					{
+						"rowIndex": 1,
+						"columnIndex": 0,
+						"rowSpan": 2,
+						"columnSpan": 1,
+						"content": "3427435437",
+						"boundingRegions": [
+							{
+								"pageNumber": 1,
+								"boundingBox": [
+									0.5064,
+									3.3181,
+									1.8978,
+									3.3181,
+									1.8978,
+									3.8497,
+									0.4992,
+									3.8497
+								]
+							}
+						],
+						"spans": [
+							{
+								"offset": 176,
+								"length": 10
+							}
+						]
+					},
+					{
+						"rowIndex": 1,
+						"columnIndex": 1,
+						"rowSpan": 2,
+						"columnSpan": 1,
+						"content": "5/2/2017",
+						"boundingRegions": [
+							{
+								"pageNumber": 1,
+								"boundingBox": [
+									1.8978,
+									3.3181,
+									3.2964,
+									3.3181,
+									3.3036,
+									3.8497,
+									1.8978,
+									3.8497
+								]
+							}
+						],
+						"spans": [
+							{
+								"offset": 187,
+								"length": 8
+							}
+						]
+					},
+					{
+						"rowIndex": 1,
+						"columnIndex": 2,
+						"rowSpan": 2,
+						"columnSpan": 1,
+						"content": "6/1/2017",
+						"boundingRegions": [
+							{
+								"pageNumber": 1,
+								"boundingBox": [
+									3.2964,
+									3.3181,
+									4.695,
+									3.3181,
+									4.7022,
+									3.8497,
+									3.3036,
+									3.8497
+								]
+							}
+						],
+						"spans": [
+							{
+								"offset": 196,
+								"length": 8
+							}
+						]
+					},
+					{
+						"rowIndex": 1,
+						"columnIndex": 3,
+						"rowSpan": 2,
+						"columnSpan": 1,
+						"content": "$1002.00",
+						"boundingRegions": [
+							{
+								"pageNumber": 1,
+								"boundingBox": [
+									4.695,
+									3.3181,
+									6.0936,
+									3.3181,
+									6.1008,
+									3.8497,
+									4.7022,
+									3.8497
+								]
+							}
+						],
+						"spans": [
+							{
+								"offset": 205,
+								"length": 8
+							}
+						]
+					},
+					{
+						"rowIndex": 1,
+						"columnIndex": 4,
+						"rowSpan": 2,
+						"columnSpan": 1,
+						"content": "RT",
+						"boundingRegions": [
+							{
+								"pageNumber": 1,
+								"boundingBox": [
+									6.0936,
+									3.3181,
+									7.485,
+									3.312,
+									7.485,
+									3.8497,
+									6.1008,
+									3.8497
+								]
+							}
+						],
+						"spans": [
+							{
+								"offset": 214,
+								"length": 2
+							}
+						]
+					}
+				],
+				"boundingRegions": [
+					{
+						"pageNumber": 1,
+						"boundingBox": [
+							0.4957,
+							2.7806,
+							7.4928,
+							2.7812,
+							7.4932,
+							3.8579,
+							0.4957,
+							3.857
+						]
+					}
+				],
+				"spans": [
+					{
+						"offset": 116,
+						"length": 100
+					}
+				]
+			}
+		],
+		"styles": []
+	}
+}

@@ -1,0 +1,51 @@
+{
+	"$schema": "https://schema.cognitiveservices.azure.com/formrecognizer/2021-03-01/fields.json",
+	"fields": [
+		{
+			"fieldKey": "VendorName",
+			"fieldType": "string",
+			"fieldFormat": "not-specified"
+		},
+		{
+			"fieldKey": "VendorAddress",
+			"fieldType": "string",
+			"fieldFormat": "not-specified"
+		},
+		{
+			"fieldKey": "CustomerName",
+			"fieldType": "string",
+			"fieldFormat": "not-specified"
+		},
+		{
+			"fieldKey": "CustomerAddress",
+			"fieldType": "string",
+			"fieldFormat": "not-specified"
+		},
+		{
+			"fieldKey": "InvoiceNumber",
+			"fieldType": "number",
+			"fieldFormat": "not-specified"
+		},
+		{
+			"fieldKey": "InvoiceDate",
+			"fieldType": "date",
+			"fieldFormat": "not-specified"
+		},
+		{
+			"fieldKey": "DueDate",
+			"fieldType": "date",
+			"fieldFormat": "not-specified"
+		},
+		{
+			"fieldKey": "InvoiceCharges",
+			"fieldType": "number",
+			"fieldFormat": "not-specified"
+		},
+		{
+			"fieldKey": "VatId",
+			"fieldType": "string",
+			"fieldFormat": "not-specified"
+		}
+	],
+	"definitions": {}
+}

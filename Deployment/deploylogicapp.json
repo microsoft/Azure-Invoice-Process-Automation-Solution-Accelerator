@@ -1,0 +1,590 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "suffixName": {
+            "type": "string",
+            "defaultValue": "z12",
+            "minLength": 3,
+            "maxLength": 10,
+            "metadata": {
+                "description": "Name the suffix between 3-10 characters with only characters and numbers"
+            }
+        },
+        "storageaccountname": {
+            "defaultValue": "xxx",
+            "type": "String", 
+            "metadata": {
+                "description": "Name of the storage account you are using for this solution"
+            }
+        },
+        "cosmosDbAccount": {
+            "defaultValue": "xxx",
+            "type": "String", 
+            "metadata": {
+                "description": "Name of the form recognizer you are using for this solution"
+            } 
+        },
+        "formrecognizername": {
+            "defaultValue": "xxx",
+            "type": "String", 
+            "metadata": {
+                "description": "Name of the form recognizer you are using for this solution"
+            }
+        }, 
+        "Ocp-Apim-Subscription-Key": {
+            "type": "securestring",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Form Recognizer Key"
+            }
+        }
+    },
+    "variables": {
+        "location": "[resourceGroup().location]",
+        "rgId": "[resourceGroup().id]",
+        "rgname": "[resourceGroup().name]",
+        "paramName": "[parameters('suffixName')]",
+        "uniqueName": "[substring(uniqueString(variables('rgId')),0,4)]",
+        "subscriptionId": "[subscription().subscriptionId]",
+
+        "logicapp": "[concat(variables('paramName'),variables('uniqueName'), 'email')]",
+        "logicapp2": "[concat(variables('paramName'),variables('uniqueName'), 'invoice')]", 
+     
+        "blobconnection":"azureblob",
+        "outlookconnection": "outlook", 
+        "cosmosdbconnection":"documentdb", 
+        "formrecognizerconnection":"formrecognizer", 
+        "modelId":"Invoicesmodel"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Web/connections",
+            "apiVersion": "2016-06-01",
+            "name": "[variables('blobconnection')]",
+            "location": "[variables('location')]",
+            "kind": "V1",
+            "properties": {
+                "displayName": "blob",
+                "statuses": [
+                    {
+                        "status": "Ready"
+                    }
+                ],
+                "customParameterValues": {},
+                "createdTime": "2022-03-01T21:50:15.9583871Z",
+                "changedTime": "2022-03-01T21:50:16.0052595Z",
+                "api": {
+                    "name": "azureblob",
+                    "displayName": "Azure Blob Storage",
+                    "description": "Microsoft Azure Storage provides a massively scalable, durable, and highly available storage for data on the cloud, and serves as the data storage solution for modern applications. Connect to Blob Storage to perform various operations such as create, update, get and delete on blobs in your Azure Storage account.",
+                    "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1551/1.0.1551.2693/azureblob/icon.png",
+                    "brandColor": "#804998",
+                    "id": "[concat('/subscriptions/',variables('subscriptionId'),'/providers/Microsoft.Web/locations/',variables('location'),'/managedApis/azureblob')]",
+                    "type": "Microsoft.Web/locations/managedApis"
+                },
+                "testLinks": [
+                    {
+                        "requestUri": "[concat('https://management.azure.com:443/subscriptions/',variables('subscriptionId'),'/resourceGroups/', variables('rgname'),'/providers/Microsoft.Web/connections/', variables('blobconnection'), '/extensions/proxy/testconnection?api-version=2016-06-01')]",
+                        "method": "get"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "Microsoft.Web/connections",
+            "apiVersion": "2016-06-01",
+            "name": "[variables('cosmosdbconnection')]",
+            "location": "[variables('location')]",
+            "kind": "V1",
+            "properties": {
+                "displayName": "CosmosDB",
+                "statuses": [
+                    {
+                        "status": "Connected"
+                    }
+                ],
+                "customParameterValues": {},
+                "createdTime": "2022-02-15T21:46:26.4856824Z",
+                "changedTime": "2022-02-15T21:46:26.5169093Z",
+                "api": {
+                    "name": "[variables('cosmosdbconnection')]",
+                    "displayName": "Azure Cosmos DB",
+                    "description": "Azure Cosmos DB is a globally distributed multi-model database service designed to enable you to elastically and independently scale throughput and storage across any number of geographical regions with a comprehensive SLA.",
+                    "iconUri": "[concat('https://connectoricons-prod.azureedge.net/releases/v1.0.1547/1.0.1547.2676/', variables('cosmosdbconnection'), '/icon.png')]",
+                    "brandColor": "#1C3A56",
+                    "id": "[concat('/subscriptions/',variables('subscriptionId'),'/providers/Microsoft.Web/locations/', variables('location'),'/managedApis/', variables('cosmosdbconnection'))]",
+                    "type": "Microsoft.Web/locations/managedApis"
+                },
+                "testLinks": [
+                    {
+                        "requestUri": "[concat('https://management.azure.com:443/subscriptions/',variables('subscriptionId'),'/resourceGroups/', variables('rgname'),'/providers/Microsoft.Web/connections/', variables('cosmosdbconnection'), '/extensions/proxy/testConnection?api-version=2016-06-01')]",
+                        "method": "get"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "Microsoft.Web/connections",
+            "apiVersion": "2016-06-01",
+            "name": "[variables('formrecognizerconnection')]",
+            "location": "[variables('location')]",
+            "kind": "V1",
+            "properties": {
+                "displayName": "FormsRecognizer",
+                "statuses": [
+                    {
+                        "status": "Connected"
+                    }
+                ],
+                "customParameterValues": {},
+                "nonSecretParameterValues": {
+                    "siteUrl": "[concat('https://', parameters('formrecognizername'),'.cognitiveservices.azure.com/')]"
+                },
+                "createdTime": "2022-02-09T03:31:55.6518529Z",
+                "changedTime": "2022-02-09T03:31:55.6987385Z",
+                "api": {
+                    "name": "[variables('formrecognizerconnection')]",
+                    "displayName": "Form Recognizer",
+                    "description": "Extracts information from forms and images into structured data based on pre-trained models or model created by a set of representative training forms.",
+                    "iconUri": "[concat('https://connectoricons-prod.azureedge.net/releases/v1.0.1528/1.0.1528.2589/', variables('formrecognizerconnection'), '/icon.png')]",
+                    "brandColor": "#0063B1",
+                    "id": "[concat('/subscriptions/',variables('subscriptionId'),'/providers/Microsoft.Web/locations/',variables('location'),'/managedApis/', variables('formrecognizerconnection'))]",
+                    "type": "Microsoft.Web/locations/managedApis"
+                },
+                "testLinks": []
+            }
+        },
+        {
+            "type": "Microsoft.Web/connections",
+            "apiVersion": "2016-06-01",
+            "name": "[variables('outlookconnection')]",
+            "location": "[variables('location')]",
+            "kind": "V1",
+            "properties": {
+                "displayName": "Outlook",
+                "statuses": [
+                    {
+                        "status": "Connected"
+                    }
+                ],
+                "customParameterValues": {},
+                "nonSecretParameterValues": {},
+                "createdTime": "2022-02-03T22:20:34.2859622Z",
+                "changedTime": "2022-03-02T19:37:57.6389104Z",
+                "api": {
+                    "name": "[variables('outlookconnection')]",
+                    "displayName": "Outlook.com",
+                    "description": "Outlook.com connector allows you to manage your mail, calendars, and contacts. You can perform various actions such as send mail, schedule meetings, add contacts, etc.",
+                    "iconUri": "[concat('https://connectoricons-prod.azureedge.net/releases/v1.0.1551/1.0.1551.2693/', variables('outlookconnection'), '/icon.png')]",
+                    "brandColor": "#0078D4",
+                    "id": "[concat('/subscriptions/',variables('subscriptionId'),'/providers/Microsoft.Web/locations/', variables('location'),'/managedApis/', variables('outlookconnection'))]",
+                    "type": "Microsoft.Web/locations/managedApis"
+                },
+                "testLinks": [
+                    {
+                        "requestUri": "[concat('https://management.azure.com:443/subscriptions/',variables('subscriptionId'),'/resourceGroups/', variables('rgname'),'/providers/Microsoft.Web/connections/', variables('outlookconnection'), '/extensions/proxy/testconnection?api-version=2016-06-01')]",
+                        "method": "get"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "Microsoft.Logic/workflows",
+            "apiVersion": "2017-07-01",
+            "name": "[variables('logicapp')]",
+            "location": "[variables('location')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/connections', variables('blobconnection'))]",
+                "[resourceId('Microsoft.Web/connections', variables('outlookconnection'))]"
+            ],
+            "properties": {
+                "state": "Enabled",
+                "definition": {
+                    "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {
+                        "$connections": {
+                            "defaultValue": {},
+                            "type": "Object"
+                        }
+                    },
+                    "triggers": {
+                        "When_a_new_email_arrives_(V2)": {
+                            "splitOn": "@triggerBody()?['value']",
+                            "type": "ApiConnectionNotification",
+                            "inputs": {
+                                "fetch": {
+                                    "method": "get",
+                                    "pathTemplate": {
+                                        "template": "/v2/Mail/OnNewEmail"
+                                    },
+                                    "queries": {
+                                        "fetchOnlyWithAttachment": true,
+                                        "folderPath": "Inbox",
+                                        "importance": "Any",
+                                        "includeAttachments": true
+                                    }
+                                },
+                                "host": {
+                                    "connection": {
+                                        "name": "@parameters('$connections')['outlook']['connectionId']"
+                                    }
+                                },
+                                "subscribe": {
+                                    "body": {
+                                        "NotificationUrl": "@{listCallbackUrl()}"
+                                    },
+                                    "method": "post",
+                                    "pathTemplate": {
+                                        "template": "/MailSubscriptionPoke/$subscriptions"
+                                    },
+                                    "queries": {
+                                        "fetchOnlyWithAttachment": true,
+                                        "folderPath": "Inbox",
+                                        "importance": "Any"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "actions": {
+                        "Delay": {
+                            "runAfter": {},
+                            "type": "Wait",
+                            "inputs": {
+                                "interval": {
+                                    "count": 10,
+                                    "unit": "Second"
+                                }
+                            }
+                        },
+                        "For_each_2": {
+                            "foreach": "@triggerBody()?['Attachments']",
+                            "actions": {
+                                "Condition": {
+                                    "actions": {},
+                                    "runAfter": {},
+                                    "else": {
+                                        "actions": {
+                                            "Create_blob_(V2)": {
+                                                "runAfter": {},
+                                                "type": "ApiConnection",
+                                                "inputs": {
+                                                    "body": "@base64ToBinary(items('For_each_2')?['ContentBytes'])",
+                                                    "headers": {
+                                                        "ReadFileMetadataFromServer": true
+                                                    },
+                                                    "host": {
+                                                        "connection": {
+                                                            "name": "@parameters('$connections')['azureblob_1']['connectionId']"
+                                                        }
+                                                    },
+                                                    "method": "post",
+                                                    "path": "[concat('/v2/datasets/@{encodeURIComponent(encodeURIComponent(''', parameters('storageaccountname'),'''))}/files')]",
+                                                    "queries": {
+                                                        "folderPath": "/invoiceadlsfs/uploaded/",
+                                                        "name": "Email-UTC-@{utcNow()}-@{items('For_each_2')?['Name']}",
+                                                        "queryParametersSingleEncoded": true
+                                                    }
+                                                },
+                                                "runtimeConfiguration": {
+                                                    "contentTransfer": {
+                                                        "transferMode": "Chunked"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "expression": {
+                                        "and": [
+                                            {
+                                                "contains": [
+                                                    "@items('For_each_2')?['Name']",
+                                                    "image001.png"
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    "type": "If"
+                                }
+                            },
+                            "runAfter": {
+                                "Delay": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "Foreach"
+                        }
+                    },
+                    "outputs": {}
+                },
+                "parameters": {
+                    "$connections": {
+                        "value": {
+                            "azureblob_1": {
+                                "connectionId": "[resourceId('Microsoft.Web/connections', variables('blobconnection'))]",
+                                "connectionName": "[variables('blobconnection')]",
+                                "id": "[concat('/subscriptions/',variables('subscriptionId'),'/providers/Microsoft.Web/locations/', variables('location'),'/managedApis/azureblob')]"
+                            },
+                            "outlook": {
+                                "connectionId": "[resourceId('Microsoft.Web/connections', variables('outlookconnection'))]",
+                                "connectionName": "[variables('outlookconnection')]",
+                                "id": "[concat('/subscriptions/',variables('subscriptionId'),'/providers/Microsoft.Web/locations/',variables('location'),'/managedApis/outlook')]"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        
+
+
+        {
+            "type": "Microsoft.Logic/workflows",
+            "apiVersion": "2017-07-01",
+            "name": "[variables('logicapp2')]",
+            "location": "[variables('location')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/connections', variables('blobconnection'))]",
+                "[resourceId('Microsoft.Web/connections', variables('cosmosdbconnection'))]"
+            ],
+            "properties": {
+                "state": "Enabled",
+                "definition": {
+                    "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {
+                        "$connections": {
+                            "defaultValue": {},
+                            "type": "Object"
+                        }
+                    },
+                    "triggers": {
+                        "When_a_blob_is_added_or_modified_(properties_only)_(V2)": {
+                            "recurrence": {
+                                "frequency": "Second",
+                                "interval": 3
+                            },
+                            "evaluatedRecurrence": {
+                                "frequency": "Second",
+                                "interval": 3
+                            },
+                            "splitOn": "@triggerBody()",
+                            "type": "ApiConnection",
+                            "inputs": {
+                                "host": {
+                                    "connection": {
+                                        "name": "@parameters('$connections')['azureblob']['connectionId']"
+                                    }
+                                },
+                                "method": "get",
+                                "path": "[concat('/v2/datasets/@{encodeURIComponent(encodeURIComponent(''', parameters('storageaccountname'),'''))}/triggers/batch/onupdatedfile')]",
+                                "queries": {
+                                    "checkBothCreatedAndModifiedDateTime": false,
+                                    "folderPath": "/invoiceadlsfs/uploaded/",
+                                    "maxFileCount": 10
+                                }
+                            }
+                        }
+                    },
+                    "actions": {
+                        "Compose": {
+                            "runAfter": {
+                                "ProcessLoop": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "Compose",
+                            "inputs": {
+                                "CustomerAddress": "@{if(contains(body('HTTPGet')['analyzeResult']['documents'][0]['fields']['CustomerAddress'],'content'),body('HTTPGet')['analyzeResult']['documents'][0]['fields']['CustomerAddress']['content'],'NA')}",
+                                "CustomerName": "@{if(contains(body('HTTPGet')['analyzeResult']['documents'][0]['fields']['CustomerName'],'content'),body('HTTPGet')['analyzeResult']['documents'][0]['fields']['CustomerName']['content'],'NA')}",
+                                "DueDate": "@{if(contains(body('HTTPGet')['analyzeResult']['documents'][0]['fields']['DueDate'],'content'),body('HTTPGet')['analyzeResult']['documents'][0]['fields']['DueDate']['content'],'NA')}",
+                                "FormRecognizerDateTimeUTC": "@{utcNow()}",
+                                "InvoiceCharges": "@{if(contains(body('HTTPGet')['analyzeResult']['documents'][0]['fields']['InvoiceCharges'],'content'),body('HTTPGet')['analyzeResult']['documents'][0]['fields']['InvoiceCharges']['content'],'NA')}",
+                                "InvoiceDate": "@{if(contains(body('HTTPGet')['analyzeResult']['documents'][0]['fields']['InvoiceDate'],'content'),body('HTTPGet')['analyzeResult']['documents'][0]['fields']['InvoiceDate']['content'],'NA')}",
+                                "InvoiceFileName": "@{triggerBody()?['DisplayName']}",
+                                "InvoiceFilePath": "@{triggerBody()?['Path']}",
+                                "InvoiceNumber": "@{if(contains(body('HTTPGet')['analyzeResult']['documents'][0]['fields']['InvoiceNumber'],'content'),body('HTTPGet')['analyzeResult']['documents'][0]['fields']['InvoiceNumber']['content'],'NA')}",
+                                "VatId": "@{if(contains(body('HTTPGet')['analyzeResult']['documents'][0]['fields']['VatId'],'content'),body('HTTPGet')['analyzeResult']['documents'][0]['fields']['VatId']['content'],'NA')}",
+                                "VendorAddress": "@{if(contains(body('HTTPGet')['analyzeResult']['documents'][0]['fields']['VendorAddress'],'content'),body('HTTPGet')['analyzeResult']['documents'][0]['fields']['VendorAddress']['content'],'NA')}",
+                                "VendorName": "@{if(contains(body('HTTPGet')['analyzeResult']['documents'][0]['fields']['VendorName'],'content'),body('HTTPGet')['analyzeResult']['documents'][0]['fields']['VendorName']['content'],'NA')}",
+                                "id": "@{variables('DocumentGuid')}"
+                            }
+                        },
+                        "Create_or_update_document_(V3)": {
+                            "runAfter": {
+                                "Compose": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "ApiConnection",
+                            "inputs": {
+                                "body": "@outputs('Compose')",
+                                "host": {
+                                    "connection": {
+                                        "name": "@parameters('$connections')['documentdb']['connectionId']"
+                                    }
+                                },
+                                "method": "post",
+                                "path": "[concat('/v2/cosmosdb/@{encodeURIComponent(encodeURIComponent(''',parameters('cosmosDbAccount'),'''))}/dbs/@{encodeURIComponent(''Invoices'')}/colls/@{encodeURIComponent(''fieldlistcustom'')}/docs')]"
+                            }
+                        },
+                        "HTTPPost": {
+                            "runAfter": {
+                                "Initialize_DocumentID": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "Http",
+                            "inputs": {
+                                "body": {
+                                    "urlSource": "[concat('https://', parameters('storageaccountname'), '.blob.core.windows.net/invoiceadlsfs/uploaded/@{triggerBody()?[''DisplayName'']}')]"
+                                },
+                                "headers": {
+                                    "Content-Type": "application/json",
+                                    "Host": "[concat(variables('location'), 'api.cognitive.microsoft.com')]",
+                                    "Ocp-Apim-Subscription-Key": "[parameters('Ocp-Apim-Subscription-Key')]"
+                                },
+                                "method": "POST",
+                                "uri": "[concat('https://', variables('location'),'.api.cognitive.microsoft.com/formrecognizer/documentModels/', variables('modelId'),':analyze?api-version=2022-01-30-preview')]"
+                            }
+                        },
+                        "Initialize_DocumentID": {
+                            "runAfter": {},
+                            "type": "InitializeVariable",
+                            "inputs": {
+                                "variables": [
+                                    {
+                                        "name": "DocumentGuid",
+                                        "type": "string",
+                                        "value": "@{guid()}"
+                                    }
+                                ]
+                            }
+                        },
+                        "Initialize_Process_status_Variable": {
+                            "runAfter": {
+                                "Initialize_ResultEndpointUrl": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "InitializeVariable",
+                            "inputs": {
+                                "variables": [
+                                    {
+                                        "name": "isReady",
+                                        "type": "string",
+                                        "value": "running"
+                                    }
+                                ]
+                            }
+                        },
+                        "Initialize_ResultEndpointUrl": {
+                            "runAfter": {
+                                "HTTPPost": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "InitializeVariable",
+                            "inputs": {
+                                "variables": [
+                                    {
+                                        "name": "resultsUrl",
+                                        "type": "string",
+                                        "value": "@{outputs('HTTPPost')['headers']?['Operation-Location']}"
+                                    }
+                                ]
+                            }
+                        },
+                        "ProcessLoop": {
+                            "actions": {
+                                "Delay": {
+                                    "runAfter": {
+                                        "Set_variable_Status": [
+                                            "Succeeded"
+                                        ]
+                                    },
+                                    "type": "Wait",
+                                    "inputs": {
+                                        "interval": {
+                                            "count": 15,
+                                            "unit": "Second"
+                                        }
+                                    }
+                                },
+                                "HTTPGet": {
+                                    "runAfter": {},
+                                    "type": "Http",
+                                    "inputs": {
+                                        "headers": {
+                                            "Content-Type": "application/json",
+                                            "Ocp-Apim-Subscription-Key": "[parameters('Ocp-Apim-Subscription-Key')]"
+                                        },
+                                        "method": "GET",
+                                        "uri": "@variables('resultsUrl')"
+                                    }
+                                },
+                                "Set_variable_Status": {
+                                    "runAfter": {
+                                        "HTTPGet": [
+                                            "Succeeded"
+                                        ]
+                                    },
+                                    "type": "SetVariable",
+                                    "inputs": {
+                                        "name": "isReady",
+                                        "value": "@{body('HTTPGet')['status']}"
+                                    }
+                                }
+                            },
+                            "runAfter": {
+                                "Initialize_Process_status_Variable": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "expression": "@equals(variables('isReady'), 'succeeded')",
+                            "limit": {
+                                "count": 60,
+                                "timeout": "PT1H"
+                            },
+                            "type": "Until"
+                        }
+                    },
+                    "outputs": {}
+                },
+                "parameters": {
+                    "$connections": {
+                        "value": {
+                            "azureblob": {
+                                "connectionId": "[resourceId('Microsoft.Web/connections', variables('blobconnection'))]",
+                                "connectionName": "azureblob",
+                                "id": "[concat('/subscriptions/', variables('subscriptionId'),'/providers/Microsoft.Web/locations/', variables('location'), '/managedApis/azureblob')]"
+                            },
+                            "documentdb": {
+                                "connectionId": "[resourceId('Microsoft.Web/connections', variables('cosmosdbconnection'))]",
+                                "connectionName": "documentdb",
+                                "id": "[concat('/subscriptions/', variables('subscriptionId'), '/providers/Microsoft.Web/locations/', variables('location'), '/managedApis/documentdb')]"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+
+
+        { 
+            "apiVersion": "2020-10-01",
+            "name": "pid-cecbb919-a93d-5409-91f6-0ce2403a32fd",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "template": {
+                    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+                    "contentVersion": "1.0.0.0",
+                    "resources": []
+                }
+            }
+        }
+    ]
+}
