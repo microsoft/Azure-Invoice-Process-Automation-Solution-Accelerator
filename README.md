@@ -6,7 +6,7 @@ products:
 - azure-form-recognizer
 - azure-logic-apps
 - power-bi
-----
+---
 
 ![InvoiceProcessAutomation](./Deployment/img/InvoiceProcessAutomation.png)
 
