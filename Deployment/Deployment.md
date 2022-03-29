@@ -5,7 +5,7 @@ Please follow the steps below to set up the Azure environment
 Clone or download this repository and navigate to the project's root directory.
 
 ## Step 2: Setting up Azure Data Lake Storage
-The Azure Data Lake Storage (ADLS) is used to receive and store the invoice files. The Logic Apps will send the invoice files stored in ADLS to the Forms Recognizer model to extract fields. In addition, if you upload invoice files to the same location, and the Logic Apps will pick up the new files or updated files and process them. 
+The Azure Data Lake Storage (ADLS) is used to receive and store the invoice files. The Logic Apps will send the invoice files stored in ADLS to the Form Recognizer model to extract fields. In addition, if you upload invoice files to the same location, and the Logic Apps will pick up the new files or updated files and process them. 
 
 1. Go to the [Azure Portal](portal.azure.com) and select the Storage Account that was created as part of the Azure Resources Creation process. 
 2. In the menu pane on the left, under `Data storage`, select `Containers`.
@@ -16,7 +16,7 @@ The Azure Data Lake Storage (ADLS) is used to receive and store the invoice file
 ### Step 3.1: Train Invoice Model 
 In this step you will train a custom Form Recognizer models for invoices
 
-1. Go to [Form Recognizer Studio](https://formrecognizer.appliedai.azure.com/studio), scroll down and select  "Custom Model"
+1. Go to [Form Recognizer Studio](https://formrecognizer.appliedai.azure.com/studio), scroll down and select  "Custom Model", click "Create new"
 
 ![Create custom model](./img/CreateCustomModel.png)
 
@@ -51,10 +51,10 @@ In this step you will train a custom Form Recognizer models for invoices
 
 ### Step 3.2: Set up System Assigned Identity 
 1. Go to the [Azure Portal](portal.azure.com) and select the Form Recognizer service that was deployed in previous steps
-2. Select `Identity` under "Resource Management" on the left switch the "status" to `On` under "System assigned" adn click "Save" at the top
+2. Select `Identity` under "Resource Management" on the left switch the "status" to `On` under "System assigned" and click "Save" at the top
 
 ### Step 3.3: Update Storage Account Permissions 
-In order to perform the necessary actions in Synapse workspace, you will need to grant more access.
+In order to perform the necessary actions in Logic Apps, you will need to grant more access.
 1. Go to the Azure Data Lake Storage Account that was deployed in the previous step
 2. Go to the `Access Control (IAM) > + Add > Add role assignment`
 3. Now search and select the `Storage Blob Data Contributor` role and click "Next"
@@ -88,7 +88,7 @@ Populate the variables accordingly:
 4. **ADLS Name**: Provide the `same Storage Account` name that was created as part of the Azure Synapse deployment in previous steps
 
 5. **Ocp-Apim-Subscription-Key**: The `forms recognizer access key`.
-    * Navigagte to the Forms Recognizer resource in your resource group
+    * Navigagte to the Form Recognizer resource in your resource group
     * Select `Keys and Endpoint` on the left and copy `Key 1`
 
 ![image6](./img/LA_image6.png "image6")
@@ -99,7 +99,7 @@ Populate the variables accordingly:
 
 There are two Logic Apps in this solution. One is referred as "**Email Processing Logic App**", the other "**Invoice Processing Logic App**" in the  [**Solution Architecture Diagram**](./img/InvoiceSAArchitecture.png). 
 
-In this step you will set up the connectivity to Office 365 Outlook, Azure Blob Storage, and Azure Forms Recognizer. 
+In this step you will set up the connectivity to Office 365 Outlook, Azure Blob Storage, and Azure Form Recognizer. 
 
 
 ### Step 5.1: Enable Managed Identity in the Email Processing Logic Apps 
@@ -141,7 +141,7 @@ In this step you will set up the connectivity to Office 365 Outlook, Azure Blob 
 
 ### Step 5.4: Set up connection for "Invoice Processing Logic App"
 
-Connectivity and invocations to Azure Forms Recognizer are established by three actions: 
+Connectivity and invocations to Azure Form Recognizer are established by three actions: 
 
 1.  Go to the [Azure Portal](portal.azure.com) and select the logic app for Invoice processing. You should see one that looks like `xxxxinvoice`
 2. Select the Logic app designer on the left and click on the blob `Connection` connection, click "+Add new" 
@@ -204,11 +204,11 @@ Connectivity and invocations to Azure Forms Recognizer are established by three 
 
    
 
-   ## Step 8 (Optional): Develop Your own Power BI Report 
+## Step 8 (Optional): Develop Your own Power BI Report 
 
-   Optionally, if you would like to develop Power BI Models afresh, you can open your PowerBI desktop, Select  `Get Data Source ...`, choose Azure Cosmos DB, and click 'Connect', as illustrated in below steps. 
+Optionally, if you would like to develop Power BI Models afresh, you can open your PowerBI desktop, Select  `Get Data Source ...`, choose Azure Cosmos DB, and click 'Connect', as illustrated in below steps. 
 
-   1. Connect to Azure Cosmos DB 
+1. Connect to Azure Cosmos DB 
 
 ![PBI-Azure-CosmosDB](img/PBI-Azure-CosmosDB-1.png "PBI-Azure-CosmosDB-1")
 

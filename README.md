@@ -14,13 +14,13 @@ products:
 
 Invoice generation and processing are vital for businesses. Manually processing invoices are costly and error prone. Conventionally programmed or automated processes can be rigid, costly to maintain, and difficult to enhance. 
 
-We'd like to introduce a low cost and low code solution that utilizes **Azure Forms Recognizer** and **Azure Logic App**. The Azure Forms Recognizer is a cloud-based Azure Applied AI service that uses machine learning models to extract and analyze fields, text, and tables from documents or images. The Azure Forms Recognizer enables businesses to process a variety of documents, including invoices, receipts, driver licenses, passports, and business cards. Azure Logic App enables solution developers to quickly design and deploy an end to end invoice processing solution. The Custom Form Recognizer Model can be easily created using Azure Forms Recognizer Studio.
+We'd like to introduce a low cost and low code solution that utilizes **Azure Form Recognizer** and **Azure Logic App**. The Azure Form Recognizer is a cloud-based Azure Applied AI service that uses machine learning models to extract and analyze fields, text, and tables from documents or images. The Azure Form Recognizer enables businesses to process a variety of documents, including invoices, receipts, driver licenses, passports, and business cards. Azure Logic App enables solution developers to quickly design and deploy an end to end invoice processing solution. The Custom Form Recognizer Model can be easily created using Azure Form Recognizer Studio.
 
 
 **Who can leverage this solution?** Businesses that receive large number of invoices with a variety of  predicable formats. 
 
 **Outcome of the solution**: Key inventory fields are extracted from invoice files or images, stored in Azure Cosmos DB, visualized reports produced in PowerBI dashboard. From the dashboard, users can search invoices by customer name, invoice date, due date, and invoice charges. 
-This solution is easily enhanced to extract additional invoice fields, without architectural changes. To process invoices in previously unseen format, a new model can be trained quickly using Azure Forms Recognizer Studio. The new model can be merged with the existing model.  
+This solution is easily enhanced to extract additional invoice fields, without architectural changes. To process invoices in previously unseen format, a new model can be trained quickly using Azure Form Recognizer Studio. The new model can be merged with the existing model.  
 
 **Possible extension**: Businesses can utilize invoice data fields stored in Azure Cosmos DB to perform further processing, such as validation, search, payment, analysis, and reporting.
 
@@ -29,7 +29,7 @@ This solution is easily enhanced to extract additional invoice fields, without a
 
 ## Prerequisites
 
-To use this solution accelerator, you will need access to an [Azure subscription](https://azure.microsoft.com/en-us/free/). An understanding of Azure Form Recognizer, Azure Forms Recognizer Studio, Azure Logic Apps, Azure Cosmos DB, and PowerBI will be helpful.
+To use this solution accelerator, you will need access to an [Azure subscription](https://azure.microsoft.com/en-us/free/). An understanding of Azure Form Recognizer, Azure Form Recognizer Studio, Azure Logic Apps, Azure Cosmos DB, and PowerBI will be helpful.
 
 For additional training and support, please review:
 
