@@ -1,7 +1,5 @@
 ---
 page_type: sample
-languages:
-- python
 products:
 - azure-form-recognizer
 - azure-logic-apps
