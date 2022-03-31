@@ -85,7 +85,7 @@ Populate the variables accordingly:
 
 3. **Suffix Name**: Insert a `suffix name` (e.g. Your initials)
 
-4. **ADLS Name**: Provide the `same Storage Account` name that was created as part of the Azure Synapse deployment in previous steps
+4. **ADLS Name**: Provide the `same Storage Account` name that was created in previous steps
 
 5. **Ocp-Apim-Subscription-Key**: The `forms recognizer access key`.
     * Navigagte to the Form Recognizer resource in your resource group
