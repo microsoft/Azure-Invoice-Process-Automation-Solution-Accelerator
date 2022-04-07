@@ -182,7 +182,7 @@ Connectivity and invocations to Azure Form Recognizer are established by three a
 
 ## Step 7: Power BI Set Up 
 
-1. Open the [Power BI report](PowerBI/CustomTrained.pbix) in this repository. 
+1. Open the [Power BI report](PowerBI/Invoice-PBI-Report.pbix) in this repository. 
 
 2. Click the Transform data dropdown and click `Edit Parameters`, as illustrated below: 
 
