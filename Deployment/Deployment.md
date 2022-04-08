@@ -172,7 +172,7 @@ Connectivity and invocations to Azure Form Recognizer are established by three a
 
 
 ## Step 6: Testing Logic Apps
-1. To test the "Email Processing Logic App," you can send an email with sample invoice [Sample Test Invoice](./Data/invoices/invoice_7.pdf) as attachment to the the mailbox you set up in the "Email Processing Logic App". 
+1. To test the "Email Processing Logic App," you can send an email with sample invoice [Sample Test Invoice](https://github.com/microsoft/Azure-Invoice-Process-Automation-Solution-Accelerator/tree/main/Deployment/Data/Invoices) as attachment to the the mailbox you set up in the "Email Processing Logic App". 
 
 > `Note: The attachment should be less than 3MB in order for the Logic App to work.`
 
@@ -186,7 +186,7 @@ Connectivity and invocations to Azure Form Recognizer are established by three a
 
 2. Click the Transform data dropdown and click `Edit Parameters`, as illustrated below: 
 
-   ![PowerBIDataSource](C:/Git-Repos/Intelligent Invoicing SA/Deployment/img/PowerBIDataSourceEditParam.png)
+   ![PowerBIDataSource](img/PowerBIDataSourceEditParam.png)
 
 3. Fill in the URI of your Cosmos DB account, as illustrated below, and click Ok. Please note: You need to replace '`cosmosdbaccountname`' below with your own Azure Cosmos DB account name. 
 
